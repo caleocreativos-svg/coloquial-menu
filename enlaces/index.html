@@ -198,9 +198,10 @@ $('#yr').textContent=new Date().getFullYear();
 
 const B=[];
 B.push({href:'../',img:'latte',i:'cup',t:'Ver el<br>menú',s:'Cafés, brunch y postres'});
-if(WIFI.red)B.push({open:'q-wifi',img:'filtrado-especial',i:'wifi',t:'WiFi<br>gratis',s:'Toca para ver la clave'});
+B.push({open:'q-wifi',img:'filtrado-especial',i:'wifi',t:'WiFi<br>gratis',s:WIFI.red?'Toca para ver la clave':'Pídele la clave a tu mesero'});
+if(REDES.instagram)B.push({href:REDES.instagram,ext:1,img:'soda-cosmica',i:'ig',t:'Instagram',s:'@coloquialcoffee'});
 if(PAGOS.length)B.push({open:'q-pagos',img:'torta-de-chocolate',i:'wallet',t:'Medios<br>de pago',s:PAGOS.map(p=>p.metodo).join(' · ')});
-if(REDES.whatsapp)B.push({href:REDES.whatsapp,ext:1,img:'frappe-de-cafe',i:'chat',t:'Escríbenos',s:'WhatsApp 312 316 4982'});
+if(REDES.whatsapp)B.push({href:REDES.whatsapp,ext:1,img:'frappe-de-cafe',i:'wa',t:'WhatsApp',s:'Escríbenos · 312 316 4982'});
 B.push({href:MAPA,ext:1,img:'tostadas-coloquial-bacon',i:'pin',t:'Cómo<br>llegar',s:'Kr 2A n° 6-90, Mariquita'});
 if(REDES.resena)B.push({href:REDES.resena,ext:1,img:'red-velvet',i:'star',t:'Califícanos',s:'Déjanos tu reseña en Google'});
 $('#btns').innerHTML=B.map((b,k)=>{const inner=`<img src="../img/${b.img}.jpg" alt=""${k>1?' loading="lazy"':''}><span class="c">${ic(b.i)}</span><span class="t">${b.t}<small>${esc(b.s)}</small></span>${ic('chev','ico ar')}`;
@@ -208,7 +209,7 @@ $('#btns').innerHTML=B.map((b,k)=>{const inner=`<img src="../img/${b.img}.jpg" a
 
 const kv=(label,val)=>`<div class="kv"><div><small>${label}</small><code>${esc(val)}</code></div><button class="copy" data-copy="${esc(val)}">${ic('copy')}<span>Copiar</span></button></div>`;
 const Q=[];
-if(WIFI.red)Q.push(['q-wifi','¿Cuál es la clave del WiFi?',kv('Red',WIFI.red)+(WIFI.clave?kv('Clave',WIFI.clave):'')+'<div class="qr"><canvas id="qr" width="108" height="108"></canvas><span>¿Otro celular en la mesa? Que escanee este código con la cámara y se conecta solo.</span></div>']);
+Q.push(['q-wifi','¿Cuál es la clave del WiFi?',!WIFI.red?'<span>Muy pronto tendrás aquí la red y la clave del WiFi. Mientras tanto, pídesela a tu mesero.</span>':kv('Red',WIFI.red)+(WIFI.clave?kv('Clave',WIFI.clave):'')+'<div class="qr"><canvas id="qr" width="108" height="108"></canvas><span>¿Otro celular en la mesa? Que escanee este código con la cámara y se conecta solo.</span></div>']);
 if(PAGOS.length)Q.push(['q-pagos','¿Cómo puedo pagar?',PAGOS.map(p=>kv(esc(p.metodo)+(p.titular?' · '+esc(p.titular):''),p.dato)).join('')+'<span>Envía el comprobante a tu mesero o por WhatsApp.</span>']);
 Q.push(['q-donde','¿Dónde están ubicados?',`<span>Kr 2A n° 6-90, Mariquita, Tolima.</span><a class="pill dk" href="${MAPA}" target="_blank" rel="noopener">Abrir en Google Maps ${ic('arrow')}</a>`]);
 Q.push(['q-menu','¿Dónde veo el menú y los precios?',`<span>Toda la carta, con fotos y precios, está en nuestro menú digital.</span><a class="pill dk" href="../">Ver el menú ${ic('arrow')}</a>`]);
